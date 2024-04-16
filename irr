@@ -1,0 +1,12 @@
+import numpy as np # Cash flows for the investment project
+
+initial_investment = 5000
+1st_year = 1500
+2nd_year = 1200
+3rd_year = 1800
+4th_year = 2400
+5th_year = 3000
+
+cash_flows = [-initial_investment, 1st_year, 2nd_year, 3rd_year, 4th_year, 5th_year]  # Negative values are cash outflows, and positive values are inflows
+irr = np.irr(cash_flows)
+print(f"The Internal Rate of Return (IRR) is: {irr*100:.2f}%")
