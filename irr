@@ -1,6 +1,6 @@
-import numpy_financial as npf # Cash flows for the investment project
+import numpy_financial as npf 
 
-initial_investment = 5000
+initial_investment = 5000 # Cash in flows for the investment project
 year_1 = 1500
 year_2 = 1200
 year_3 = 1800
