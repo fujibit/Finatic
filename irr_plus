@@ -1,0 +1,39 @@
+import pandas as pd
+import numpy_financial as npf
+
+def read_excel_file(file_path, sheet_name=0):
+    try:
+        data = pd.read_excel(file_path, sheet_name=sheet_name, engine='openpyxl')
+        return data
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+def calculate_irr_from_excel(file_path, sheet_name=0, column='Cash Flows'):
+    try:
+        data = read_excel_file(file_path, sheet_name)
+        if column not in data.columns:
+            raise ValueError(f"The column '{column}' does not exist in the data.")
+
+        # Ensure that the data is numeric and clean up any NaN or missing values
+        cash_flows = pd.to_numeric(data[column], errors='coerce').dropna()
+
+        if cash_flows.empty:
+            raise ValueError("The cash flow data is empty after cleaning.")
+
+        # Check for valid cash flow signs for IRR calculation
+        if not (cash_flows.lt(0).any() and cash_flows.gt(0).any()):
+            raise ValueError("Cash flows must contain at least one positive and one negative value to calculate IRR.")
+
+        irr_value = npf.irr(cash_flows)
+        irr_percent = irr_value * 100
+
+        return irr_percent
+    except Exception as e:
+        print(f"An error occurred while calculating IRR: {e}")
+        return None
+
+# Example usage
+file_path = r'C:\Projects\finatic\irr.xlsx'
+irr_result = calculate_irr_from_excel(file_path, sheet_name='Sheet1', column='Cash Flows')
+if irr_result is not None:
+    print(f"The Internal Rate of Return (IRR) is: {irr_result:.2f}%")
