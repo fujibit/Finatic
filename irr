@@ -1,11 +1,11 @@
 import numpy as np # Cash flows for the investment project
 
 initial_investment = 5000
-1st_year = 1500
-2nd_year = 1200
-3rd_year = 1800
-4th_year = 2400
-5th_year = 3000
+year_1 = 1500
+year_2 = 1200
+year_3 = 1800
+year_4 = 2400
+year_5 = 3000
 
 cash_flows = [-initial_investment, 1st_year, 2nd_year, 3rd_year, 4th_year, 5th_year]  # Negative values are cash outflows, and positive values are inflows
 irr = np.irr(cash_flows)
